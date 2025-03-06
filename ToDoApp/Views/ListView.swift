@@ -23,11 +23,12 @@ struct ListView: View {
         }
         .navigationTitle(Text("To Do List"))
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing){
+            ToolbarItem(placement: .topBarLeading){
                 EditButton()
             }
-            ToolbarItem(placement: .topBarLeading) {
-                NavigationLink("Add", destination: Text("Add"))
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink("Add",
+                               destination: AddView())
             }
         }
     }
