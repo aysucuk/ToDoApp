@@ -10,15 +10,15 @@ import SwiftUI
 struct ListView: View {
     var body: some View {
         
-        @State var items: [String] = [
-            "firts item",
-            "second item",
-            "third item"
+        @State var items: [ItemModel] = [
+            ItemModel(title: "It is first item", isCompleted: true),
+            ItemModel(title: "It is second item", isCompleted: false),
+            ItemModel(title: "It is third item", isCompleted: true),
         ]
         
         List {
-            ForEach(items, id: \.self) { item in
-                Text(item)
+            ForEach(items) { item in
+                ListRowView(item: item)
             }
         }
         .navigationTitle(Text("To Do List"))
