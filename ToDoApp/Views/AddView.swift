@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct AddView: View {
+    
+    @State var textFieldText: String = ""
+    @EnvironmentObject var listViewModel: ListViewModel
+    @Environment(\.dismiss) var dismissScreen
+    
+    
     var body: some View {
-        
-        @State var textFieldText : String = ""
         
         ScrollView {
             VStack {
@@ -22,7 +26,7 @@ struct AddView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 Button {
-                    
+                    saveButtonPressed()
                 } label: {
                     Text("Save".uppercased())
                         .foregroundStyle(Color.white)
@@ -39,11 +43,17 @@ struct AddView: View {
         }
         .navigationTitle("Add an Item")
     }
+    
+    func saveButtonPressed() {
+        listViewModel.addItem(title: textFieldText)
+        dismissScreen()
+    }
 }
 
 #Preview {
     NavigationStack{
         AddView()
     }
+    .environmentObject(ListViewModel())
     
 }
