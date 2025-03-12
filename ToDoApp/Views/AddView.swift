@@ -13,6 +13,9 @@ struct AddView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @Environment(\.dismiss) var dismissScreen
     
+    @State var alertTitle : String = ""
+    @State var showAlert : Bool = false
+    
     
     var body: some View {
         
@@ -42,11 +45,30 @@ struct AddView: View {
             .padding(15)
         }
         .navigationTitle("Add an Item")
+        .alert(isPresented: $showAlert) {
+            getAlert()
+        }
     }
     
     func saveButtonPressed() {
-        listViewModel.addItem(title: textFieldText)
-        dismissScreen()
+        
+        if textIsAppropriate() {
+            listViewModel.addItem(title: textFieldText)
+            dismissScreen()
+        }
+    }
+    
+    func textIsAppropriate() -> Bool {
+        if textFieldText.count <= 3 {
+            alertTitle = "Please enter at least 3 characters!"
+            showAlert.toggle()
+            return false
+        }
+        return true
+    }
+    
+    func getAlert() -> Alert {
+        return Alert(title: Text(alertTitle))
     }
 }
 
